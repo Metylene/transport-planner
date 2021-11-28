@@ -1,0 +1,51 @@
+body {
+    background-color: #303030;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header img {
+    display: flex;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    margin: 0 40px 20px 20px;
+}
+
+header #flag {
+    margin-left: 1em;
+}
+
+header #flag img {
+    -o-object-fit: contain;
+    object-fit: contain;
+    width: 2.750em;
+    height: 2.750em;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #e77c48;
+}
+
+.nav-link img {
+    max-width: 45px;
+    max-height: 45px;
+}
+
+.tab-content img {
+    width: 64px;
+    height: 64px;
+}
+
+.tab-content button {
+    background-color: rgb(85, 85, 85);
+    justify-content: center;
+    margin-bottom: 0.2em;
+}

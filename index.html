@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Transport planner</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="icon" href="favicon.png" />
+    <link rel="stylesheet" href="src/css/darkly-bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/style.css">
+</head>
+
+<body>
+    <noscript>
+        <strong>Désolé mais cette page a besoin de Javascript pour fonctionner. Veuillez l'installer /
+            l'autoriser.</strong>
+        <br>
+        <strong>Sorry but this page need Javascript to work properly. Please install or autorize it.</strong>
+    </noscript>
+    <header>
+        <img src="./assets/logo_clan.png" alt="Clan logo">
+        <h1>Transport planner</h1>
+        <div id="flag">
+            <img src="./assets/flag_fr.svg" alt="choix langue française" onclick="localize('fr')">
+            <img src="./assets/flag_en.svg" alt="english language choice" onclick="localize('en')">
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 rounded">
+                <div class="w-100 d-flex mt-3">
+                    <h3>ITEMS</h3>
+                </div>
+                <div class="d-flex align-items-start">
+                    <div class="nav flex-column nav-pills me-3 bg-black rounded" id="v-pills-tab" role="tablist"
+                        aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-basic-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-basic" type="button" role="tab" aria-controls="v-pills-basic"
+                            aria-selected="true"><img src="./assets/items/basic.png" alt="Basic"></button>
+                        <button class="nav-link" id="v-pills-explosive-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-explosive" type="button" role="tab"
+                            aria-controls="v-pills-explosive" aria-selected="false"><img
+                                src="./assets/items/explosive.png" alt="Explosive"></button>
+                        <button class="nav-link" id="v-pills-utility-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-utility" type="button" role="tab" aria-controls="v-pills-utility"
+                            aria-selected="false"><img src="./assets/items/utility.png" alt="Utility"></button>
+                        <button class="nav-link" id="v-pills-medical-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-medical" type="button" role="tab" aria-controls="v-pills-medical"
+                            aria-selected="false"><img src="./assets/items/medical.png" alt="Medical"></button>
+                        <button class="nav-link" id="v-pills-uniform-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-uniform" type="button" role="tab" aria-controls="v-pills-uniform"
+                            aria-selected="false"><img src="./assets/items/uniform.png" alt="uniform"></button>
+                        <button class="nav-link" id="v-pills-resource-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-resource" type="button" role="tab" aria-controls="v-pills-resource"
+                            aria-selected="false"><img src="./assets/items/resource.png" alt="Resource"></button>
+                        <button class="nav-link" id="v-pills-vehicle-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-vehicle" type="button" role="tab" aria-controls="v-pills-vehicle"
+                            aria-selected="false"><img src="./assets/items/vehicle.png" alt="vehicle"></button>
+                        <button class="nav-link" id="v-pills-shippables-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-shippables" type="button" role="tab"
+                            aria-controls="v-pills-shippables" aria-selected="false"><img
+                                src="./assets/items/shippables.png" alt="shippables"></button>
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-basic" role="tabpanel"
+                            aria-labelledby="v-pills-basic-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="8 mm"><img
+                                    src="./assets/items/8.png" alt="8"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Cascadier"><img
+                                    src="./assets/items/cascadier.png" alt="cascadier"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="0.44 mm"><img
+                                    src="./assets/items/0.44.png" alt="0.44"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Cometa"><img
+                                    src="./assets/items/cometa.png" alt="cometa"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Hangman"><img
+                                    src="./assets/items/hangman.png" alt="hangman"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="7.62 mm"><img
+                                    src="./assets/items/7.62.png" alt="7.62"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Loughcaster"><img
+                                    src="./assets/items/loughcaster.png" alt="loughcaster"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Blakerow"><img
+                                    src="./assets/items/blakerow.png" alt="blakerow"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Cinder"><img
+                                    src="./assets/items/cinder.png" alt="cinder"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Sampo"><img
+                                    src="./assets/items/sampo.png" alt="sampo"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="9 mm"><img
+                                    src="./assets/items/9.png" alt="9"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Fiddler"><img
+                                    src="./assets/items/fiddler.png" alt="fiddler"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Liar"><img
+                                    src="./assets/items/liar.png" alt="liar"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="7.92 mm"><img
+                                    src="./assets/items/7.92.png" alt="7.92"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Aalto"><img
+                                    src="./assets/items/aalto.png" alt="aalto"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Booker"><img
+                                    src="./assets/items/booker.png" alt="booker"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Buckshot"><img
+                                    src="./assets/items/buckshot.png" alt="buckshot"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Shotgun"><img
+                                    src="./assets/items/shotgun.png" alt="shotgun"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="8.5 mm"><img
+                                    src="./assets/items/8.5.png" alt="8.5"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Clancy"><img
+                                    src="./assets/items/clancy.png" alt="clancy"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="12.7 mm"><img
+                                    src="./assets/items/12.7.png" alt="12.7"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Malone"><img
+                                    src="./assets/items/malone.png" alt="malone"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-explosive" role="tabpanel"
+                            aria-labelledby="v-pills-explosive-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mammon"><img
+                                    src="./assets/items/mammon.png" alt="mammon"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Frag"><img
+                                    src="./assets/items/frag.png" alt="frag"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Gas"><img
+                                    src="./assets/items/ash.png" alt="ash"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Sticky"><img
+                                    src="./assets/items/sticky.png" alt="sticky"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Flask"><img
+                                    src="./assets/items/flask.png" alt="flask"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Smoke"><img
+                                    src="./assets/items/smoke.png" alt="smoke"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="20 mm"><img
+                                    src="./assets/items/20.png" alt="20"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Neville"><img
+                                    src="./assets/items/neville.png" alt="neville"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="30 mm"><img
+                                    src="./assets/items/30.png" alt="30"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="40 mm"><img
+                                    src="./assets/items/40.png" alt="40"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="68 mm"><img
+                                    src="./assets/items/68.png" alt="68"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="250 mm"><img
+                                    src="./assets/items/250.png" alt="250"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Rpg shell"><img
+                                    src="./assets/items/rpgshell.png" alt="rpgshell"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Cutler"><img
+                                    src="./assets/items/cutler.png" alt="cutler"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mounted cutler"><img
+                                    src="./assets/items/mountedcutler.png" alt="mountedcutler"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="A.T.R.P.G indirect shell"><img src="./assets/items/atrpginshell.png"
+                                    alt="atrpginshell"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Bonesaw"><img
+                                    src="./assets/items/bonesaw.png" alt="bonesaw"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mounted bonesaw"><img
+                                    src="./assets/items/mountedbonesaw.png" alt="mountedbonesaw"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mortar shell"><img
+                                    src="./assets/items/mortarshell.png" alt="mortarshell"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mortar flare shell"><img
+                                    src="./assets/items/mortarflareshell.png" alt="mortarflareshell"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mortar shrapnel shell"><img
+                                    src="./assets/items/mortarshrapnelshell.png" alt="mortarshrapnelshell"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mortar"><img
+                                    src="./assets/items/Mortar.png" alt="Mortar"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="120 mm"><img
+                                    src="./assets/items/120.png" alt="120"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="150 mm"><img
+                                    src="./assets/items/150.png" alt="150"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="300 mm"><img
+                                    src="./assets/items/300.png" alt="300"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-utility" role="tabpanel"
+                            aria-labelledby="v-pills-utility-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Shovel"><img
+                                    src="./assets/items/shovel.png" alt="shovel"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Sledge"><img
+                                    src="./assets/items/sledge.png" alt="sledge"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Wrench"><img
+                                    src="./assets/items/wrench.png" alt="wrench"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Binoculars"><img
+                                    src="./assets/items/binoculars.png" alt="binoculars"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Radio"><img
+                                    src="./assets/items/radio.png" alt="radio"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Gas mask"><img
+                                    src="./assets/items/gasmask.png" alt="gasmask"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Gas filter"><img
+                                    src="./assets/items/gasfilter.png" alt="gasfilter"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Bayonet"><img
+                                    src="./assets/items/bayonet.png" alt="bayonet"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="AT mine"><img
+                                    src="./assets/items/atmine.png" alt="atmine"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Alligator charge"><img
+                                    src="./assets/items/alligator.png" alt="alligator"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Tripod"><img
+                                    src="./assets/items/tripod.png" alt="tripod"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Listening kit"><img
+                                    src="./assets/items/listening.png" alt="listening"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Radio backpack"><img
+                                    src="./assets/items/radiobackpack.png" alt="radiobackpack"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-medical" role="tabpanel"
+                            aria-labelledby="v-pills-medical-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Shirts"><img
+                                    src="./assets/items/shirts.png" alt="shirts"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Bandage"><img
+                                    src="./assets/items/bandage.png" alt="bandage"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Firstaid kit"><img
+                                    src="./assets/items/firstaid.png" alt="firstaid"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Plasma"><img
+                                    src="./assets/items/plasma.png" alt="plasma"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Trauma kit"><img
+                                    src="./assets/items/trauma.png" alt="trauma"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-uniform" role="tabpanel"
+                            aria-labelledby="v-pills-uniform-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Specialist"><img
+                                    src="./assets/items/specialist.png" alt="specialist"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Physician"><img
+                                    src="./assets/items/physician.png" alt="physician"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Sapper"><img
+                                    src="./assets/items/sapper.png" alt="sapper"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Outrider"><img
+                                    src="./assets/items/outrider.png" alt="outrider"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Parka"><img
+                                    src="./assets/items/parka.png" alt="parka"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Padded"><img
+                                    src="./assets/items/padded.png" alt="padded"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-resource" role="tabpanel"
+                            aria-labelledby="v-pills-resource-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Gsup"><img
+                                    src="./assets/items/gsup.png" alt="gsup"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Bsup"><img
+                                    src="./assets/items/bsup.png" alt="bsup"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Diesel"><img
+                                    src="./assets/items/diesel.png" alt="diesel"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Petrol"><img
+                                    src="./assets/items/petrol.png" alt="petrol"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Bmat"><img
+                                    src="./assets/items/bmat.png" alt="bmat"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Emat"><img
+                                    src="./assets/items/emat.png" alt="emat"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Rmat"><img
+                                    src="./assets/items/rmat.png" alt="rmat"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Hemat"><img
+                                    src="./assets/items/hemat.png" alt="hemat"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Iron"><img
+                                    src="./assets/items/iron.png" alt="iron"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Alu"><img
+                                    src="./assets/items/alu.png" alt="alu"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Copper"><img
+                                    src="./assets/items/copper.png" alt="copper"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Relic material"><img
+                                    src="./assets/items/relicmat.png" alt="relicmat"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-vehicle" role="tabpanel"
+                            aria-labelledby="v-pills-vehicle-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Ambulance"><img
+                                    src="./assets/items/responder.png" alt="responder"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Moto"><img
+                                    src="./assets/items/kivela.png" alt="kivela"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Bus"><img
+                                    src="./assets/items/caravaner.png" alt="caravaner"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Harvester"><img
+                                    src="./assets/items/scraphauler.png" alt="scraphauler.png"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="CV"><img
+                                    src="./assets/items/cv.png" alt="cv"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Crane"><img
+                                    src="./assets/items/crane.png" alt="crane"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Flatbed"><img
+                                    src="./assets/items/flatbed.png" alt="flatbed"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Dunne"><img
+                                    src="./assets/items/transport.png" alt="transport"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Leatherback"><img
+                                    src="./assets/items/leatherback.png" alt="leatherback"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Landrunner"><img
+                                    src="./assets/items/landrunner.png" alt="landrunner"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Loadlugger"><img
+                                    src="./assets/items/loadlugger.png" alt="loadlugger"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Fuelrunner"><img
+                                    src="./assets/items/fuelrunner.png" alt="fuelrunner"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Swallowtail (12.7) FMG"><img
+                                    src="./assets/items/swallowtail.png" alt="swallowtail"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Rampart (40)"><img
+                                    src="./assets/items/rampart.png" alt="rampart"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Wolfhound (40)"><img
+                                    src="./assets/items/wolfhound.png" alt="wolfhound"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Collins (68) FAT"><img
+                                    src="./assets/items/collins.png" alt="collins"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Falconer (250)"><img
+                                    src="./assets/items/falconer.png" alt="falconer"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Drummond LUV"><img
+                                    src="./assets/items/drummond.png" alt="drummond"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Spitfire LUV"><img
+                                    src="./assets/items/spitfire.png" alt="spitfire"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Loscann ALUV"><img
+                                    src="./assets/items/loscann.png" alt="loscann"></button>
+
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Freeman (40) HAC"><img
+                                    src="./assets/items/freeman.png" alt="freeman"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="O'brien (Double 7.92) AC"><img src="./assets/items/obrien.png"
+                                    alt="obrien"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Highlander (Double 7.92) AC"><img src="./assets/items/highlander.png"
+                                    alt="highlander"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Gallant (30) ST"><img
+                                    src="./assets/items/gallant.png" alt="gallant"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Spire (12.7) ST"><img
+                                    src="./assets/items/spire.png" alt="spire"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Devitt (40) LT"><img
+                                    src="./assets/items/devitt.png" alt="devitt"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Ironhide (40) ULT"><img
+                                    src="./assets/items/ironhide.png" alt="ironhide"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Caine (Mortar) MLT"><img
+                                    src="./assets/items/caine.png" alt="caine"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Blinder (68) ATHT"><img
+                                    src="./assets/items/blinder.png" alt="blinder"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Niska (12.7) HTMG"><img
+                                    src="./assets/items/niska.png" alt="niska"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Gallagher Outlaw (40 & 7.92)"><img src="./assets/items/gallagher.png"
+                                    alt="gallagher"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Chieftain (250 & 12.7)"><img
+                                    src="./assets/items/chieftain.png" alt="chieftain"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Silverhand (68 & 40)"><img
+                                    src="./assets/items/silverhand.png" alt="silverhand"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Noble Widow (68) HTD"><img
+                                    src="./assets/items/noble.png" alt="noble"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Mulloy (APC)"><img
+                                    src="./assets/items/mulloy.png" alt="mulloy"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Aquatipper (Barge)"><img
+                                    src="./assets/items/aquatipper.png" alt="aquatipper"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Ironship (Freighter)"><img
+                                    src="./assets/items/ironship.png" alt="ironship"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Meteora (120 & 12.7)"><img
+                                    src="./assets/items/meteora.png" alt="meteora"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Ronan (Double 120)"><img
+                                    src="./assets/items/ronan.png" alt="ronan"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Landing ship (Whale)"><img
+                                    src="./assets/items/whale.png" alt="landing ship"></button>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-shippables" role="tabpanel"
+                            aria-labelledby="v-pills-shippables-tab">
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Resource container"><img
+                                    src="./assets/items/rcontainer.png" alt="rcontainer"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Shipping container"><img
+                                    src="./assets/items/scontainer.png" alt="scontainer"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Small Shipping container"><img src="./assets/items/small_scontainer.png"
+                                    alt="small shipping container"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Flak (12.7)"><img
+                                    src="./assets/items/flak.png" alt="flak"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="EAT (68)"><img
+                                    src="./assets/items/eat.png" alt="AT emplacement"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Lariat (120)"><img
+                                    src="./assets/items/lariat.png" alt="lariat 120mm"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Exalt (150)"><img
+                                    src="./assets/items/exalt.png" alt="exalt 150mm"></button>
+                            <br>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Concrete mixer"><img
+                                    src="./assets/items/mixer.png" alt="concrete mixer"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Wire pallet"><img
+                                    src="./assets/items/wire_plateform.png" alt="wire pallet"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Beam pallet"><img
+                                    src="./assets/items/beam_plateform.png" alt="beam pallet"></button>
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Sandbag pallet"><img
+                                    src="./assets/items/sandbag_plateform.png" alt="sandbag pallet"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p class="text-center p-5">Par Metylene, pour le 11e RC-FL. Emblème du clan par Marlow.</p>
+    </footer>
+</body>
+<script src="src/js/bootstrap.bundle.min.js"></script>
+<script src="src/js/app.js"></script>
+
+</html>
