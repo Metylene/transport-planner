@@ -65,10 +65,12 @@ function createItemListElt(name, imgElt) {
     buttonMinusElt.type = 'minus';
     buttonMinusElt.textContent = '-';
     buttonMinusElt.disabled = true;
-    buttonMinusElt.onclick = function () {
-        let inputElt = this.parentNode.querySelector('input');
-        if (inputElt.value > 1) {
-            inputElt.value--;
+    buttonMinusElt.onclick = function (event) {
+        if (!isNaN(inputElt.value) || inputElt.value > 1) {
+            let incrementStep = event.shiftKey ? 10 : 1;
+            inputElt.value = (parseInt(inputElt.value) - incrementStep) > 1 ? (parseInt(inputElt.value) - incrementStep) : 1;
+        } else {
+            inputElt.value = 1;
         }
         if (inputElt.value === 1 || inputElt.value === '1') {
             this.disabled = true;
@@ -78,9 +80,14 @@ function createItemListElt(name, imgElt) {
     buttonPlusElt.classList.add('btn', 'btn-secondary');
     buttonPlusElt.type = 'plus';
     buttonPlusElt.textContent = '+';
-    buttonPlusElt.onclick = function () {
-        let inputElt = this.parentNode.querySelector('input');
-        inputElt.value++;
+    buttonPlusElt.onclick = function (event) {
+        let incrementStep = event.shiftKey ? 10 : 1;
+        if(!isNaN(inputElt.value)) {
+            inputElt.value = parseInt(inputElt.value) + incrementStep;
+        } else {
+            inputElt.value = 1;
+        }
+
         if(buttonMinusElt.disabled){
             buttonMinusElt.disabled = false;
         }
