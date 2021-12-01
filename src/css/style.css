@@ -52,7 +52,7 @@ header #flag img {
     transition: background-color 0.5s;
 }
 
-.tab-content .item>.number {
+.tab-content .item>.amount {
     border-top-left-radius: 0.25em;
     background-color: #e77c48;
     font-weight: bold;
@@ -60,6 +60,7 @@ header #flag img {
     position: absolute;
     right: 0px;
     bottom: 0px;
+    display: inline-block;
 }
 
 /* Liste */

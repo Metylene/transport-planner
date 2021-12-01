@@ -1,3 +1,5 @@
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
 function initialize() {
     let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -18,29 +20,14 @@ function initialize() {
 
     let dropZoneEltList = document.querySelectorAll('.drop-zone');
     dropZoneEltList.forEach(function (dropZoneElt) {
-        dropZoneElt.ondragover = function () {
-            this.classList.add('drop');
-            return false;
-        }
-        dropZoneElt.ondragleave = function () {
-            this.classList.remove('drop');
-            return false;
-        }
-        dropZoneElt.ondrop = function (e) {
-            e.preventDefault();
-            this.classList.remove('drop');
-            let draggedItem = document.getElementById(e.dataTransfer.getData("text/plain"));
-            let itemList = createItemListElt(draggedItem.dataset.bsOriginalTitle, draggedItem.querySelector('img'));
-            // let itemCategory = draggedItem.parentNode.getAttribute("aria-labelledby").split("-")[2];
-            e.currentTarget.parentNode.parentNode.querySelector('ul').appendChild(itemList);
-        }
+        addDropzoneEventListener(dropZoneElt);
     });
 }
 initialize();
 
 function createItemListElt(name, imgElt) {
     let itemListElt = document.createElement('li');
-    itemListElt.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center', 'w-100');
+    itemListElt.classList.add('list-group-item', 'd-flex', 'align-items-center', 'w-100');
 
     let imgEltClone = imgElt.cloneNode(true);
     imgEltClone.classList.add('p-1');
@@ -60,6 +47,14 @@ function createItemListElt(name, imgElt) {
     inputElt.type = 'number';
     inputElt.min = '1';
     inputElt.value = '1';
+    inputElt.onchange = function (event) {
+        let qty = parseInt(inputElt.value);
+        if (isNaN(qty) || qty < 1) {
+            qty = 1;
+        }
+        inputElt.value = qty;
+        onQtyInputChange(event);
+    };
     let buttonMinusElt = document.createElement('button');
     buttonMinusElt.classList.add('btn', 'btn-secondary');
     buttonMinusElt.type = 'minus';
@@ -75,6 +70,7 @@ function createItemListElt(name, imgElt) {
         if (inputElt.value === 1 || inputElt.value === '1') {
             this.disabled = true;
         }
+        onQtyInputChange(event);
     };
     let buttonPlusElt = document.createElement('button');
     buttonPlusElt.classList.add('btn', 'btn-secondary');
@@ -91,6 +87,7 @@ function createItemListElt(name, imgElt) {
         if(buttonMinusElt.disabled){
             buttonMinusElt.disabled = false;
         }
+        onQtyInputChange(event);
     };
     inputGroupElt.appendChild(buttonMinusElt);
     inputGroupElt.appendChild(inputElt);
@@ -101,10 +98,78 @@ function createItemListElt(name, imgElt) {
     let removeButton = document.createElement('button');
     removeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'ms-3');
     removeButton.textContent = 'X';
-    removeButton.onclick = function () {
+    removeButton.onclick = function (event) {
+        const itemName = event.target.closest('li').querySelector('img').getAttribute('alt');
+        const shipmentElt = event.target.closest('.shipment');
+
         this.parentNode.parentNode.removeChild(this.parentNode);
+
+        updateItemTotal(itemName);
+        updateShipmentTotal(shipmentElt);
     };
     itemListElt.appendChild(removeButton);
 
     return itemListElt;
+}
+
+function addDropzoneEventListener(dropZoneElt) {
+    dropZoneElt.ondragover = function () {
+        this.classList.add('drop');
+        return false;
+    }
+    dropZoneElt.ondragleave = function () {
+        this.classList.remove('drop');
+        return false;
+    }
+    dropZoneElt.ondrop = function (e) {
+        e.preventDefault();
+        this.classList.remove('drop');
+        let draggedItem = document.getElementById(e.dataTransfer.getData("text/plain"));
+        let itemList = createItemListElt(draggedItem.dataset.bsOriginalTitle, draggedItem.querySelector('img'));
+        // let itemCategory = draggedItem.parentNode.getAttribute("aria-labelledby").split("-")[2];
+        let shipmentElt = e.currentTarget.closest('.shipment');
+        shipmentElt.querySelector('ul').appendChild(itemList);
+        updateItemTotal(draggedItem.querySelector('img').getAttribute('alt'));
+        updateShipmentTotal(shipmentElt);
+    }
+}
+
+function addShipment(event) {
+    let shipmentListElt = document.querySelector('#shipment-list');
+    let shipmentCloneElt = shipmentListElt.children[0].cloneNode(true);
+    addDropzoneEventListener(shipmentCloneElt.querySelector('.drop-zone'));
+    shipmentCloneElt.querySelector('h5').textContent = alphabet[shipmentListElt.children.length - 1];
+    shipmentCloneElt.querySelector('ul').innerHTML = '';
+    shipmentListElt.insertBefore(shipmentCloneElt, event.target);
+}
+
+onQtyInputChange = function (event) {
+    const itemName = event.target.closest('li').querySelector('img').getAttribute('alt');
+    updateItemTotal(itemName);
+    updateShipmentTotal(event.currentTarget.closest('.shipment'));
+};
+
+updateItemTotal = function (itemName) {
+    let itemEltList = document.querySelectorAll('.list-group-item>img[alt="' + itemName + '"]');
+    let total = 0;
+    itemEltList.forEach(function (itemElt) {
+        let qty = parseInt(itemElt.parentNode.querySelector('input').value);
+        if (isNaN(qty)) {
+            qty = 1;
+            itemElt.parentNode.querySelector('input').value = qty;
+        }
+        total += qty;
+    });
+    document.querySelector('#item_' + itemName).querySelector('.amount').textContent = total > 0 ? total : '';
+}
+
+
+function updateShipmentTotal(shipmentElement) {
+    let shipmentTotal = 0;
+    let shipmentItemList = shipmentElement.querySelector('ul').children;
+    for (let i = 0; i < shipmentItemList.length; i++) {
+        let crateQuantity = parseInt(shipmentItemList[i].querySelector('input').value);
+        shipmentTotal += isNaN(crateQuantity) ? 0 : crateQuantity;
+    }
+    shipmentElement.querySelector('.crate-amount').textContent = shipmentTotal;
 }
