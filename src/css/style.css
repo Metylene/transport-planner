@@ -63,12 +63,6 @@ header #flag img {
 }
 
 /* Liste */
-
-.group {
-    border-radius: 0.25em;
-    border: 1px solid black;
-}
-
 .drop-zone.drop {
     color: #e77c48;
     outline-color: #e77c48;
@@ -93,14 +87,14 @@ header #flag img {
     max-height: 40px;
     margin-right: 0.5em;
 }
-/* Chrome, Safari, Edge, Opera */
+
+/* Remove arrow on number input */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-/* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
