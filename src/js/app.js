@@ -53,6 +53,9 @@ function createItemListElt(name, imgElt) {
             qty = 1;
         }
         inputElt.value = qty;
+        if (qty > 1 && buttonMinusElt.disabled) {
+            buttonMinusElt.disabled = false;
+        }
         onQtyInputChange(event);
     };
     let buttonMinusElt = document.createElement('button');
@@ -78,13 +81,13 @@ function createItemListElt(name, imgElt) {
     buttonPlusElt.textContent = '+';
     buttonPlusElt.onclick = function (event) {
         let incrementStep = event.shiftKey ? 10 : 1;
-        if(!isNaN(inputElt.value)) {
+        if (!isNaN(inputElt.value)) {
             inputElt.value = parseInt(inputElt.value) + incrementStep;
         } else {
             inputElt.value = 1;
         }
 
-        if(buttonMinusElt.disabled){
+        if (buttonMinusElt.disabled) {
             buttonMinusElt.disabled = false;
         }
         onQtyInputChange(event);
