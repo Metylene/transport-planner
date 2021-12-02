@@ -45,12 +45,11 @@ function createItemListElt(name, imgElt) {
     inputElt.placeholder = 'Qty';
     inputElt.ariaLabel = 'Quantity of crates';
     inputElt.type = 'number';
-    inputElt.min = '1';
-    inputElt.value = '1';
+    inputElt.min = inputElt.value = 0;
     inputElt.onchange = function (event) {
         let qty = parseInt(inputElt.value);
-        if (isNaN(qty) || qty < 1) {
-            qty = 1;
+        if (isNaN(qty) || qty < inputElt.min) {
+            qty = inputElt.min;
         }
         inputElt.value = qty;
         if (qty > 1 && buttonMinusElt.disabled) {
@@ -64,13 +63,18 @@ function createItemListElt(name, imgElt) {
     buttonMinusElt.textContent = '-';
     buttonMinusElt.disabled = true;
     buttonMinusElt.onclick = function (event) {
-        if (!isNaN(inputElt.value) || inputElt.value > 1) {
-            let incrementStep = event.shiftKey ? 10 : 1;
-            inputElt.value = (parseInt(inputElt.value) - incrementStep) > 1 ? (parseInt(inputElt.value) - incrementStep) : 1;
+        if (!isNaN(inputElt.value) || inputElt.value > inputElt.min) {
+            let incrementStep = 1;
+            if (event.shiftKey) {
+                incrementStep = 10;
+            } else if (event.ctrlKey) {
+                incrementStep = 5;
+            }
+            inputElt.value = (parseInt(inputElt.value) - incrementStep) > 0 ? (parseInt(inputElt.value) - incrementStep) : 0;
         } else {
-            inputElt.value = 1;
+            inputElt.value = inputElt.min;
         }
-        if (inputElt.value === 1 || inputElt.value === '1') {
+        if (inputElt.value === 0 || inputElt.value === '0') {
             this.disabled = true;
         }
         onQtyInputChange(event);
@@ -80,7 +84,12 @@ function createItemListElt(name, imgElt) {
     buttonPlusElt.type = 'plus';
     buttonPlusElt.textContent = '+';
     buttonPlusElt.onclick = function (event) {
-        let incrementStep = event.shiftKey ? 10 : 1;
+        let incrementStep = 1;
+        if (event.shiftKey) {
+            incrementStep = 10;
+        } else if (event.ctrlKey) {
+            incrementStep = 5;
+        }
         if (!isNaN(inputElt.value)) {
             inputElt.value = parseInt(inputElt.value) + incrementStep;
         } else {
@@ -180,7 +189,7 @@ function updateShipmentTotal(shipmentElement) {
 
 async function generate_list(event){
     const textarea = document.querySelector('#generated_list');
-    textarea.textContent = '#Todo list\n';
+    textarea.textContent = '#**Todo list**\n';
     textarea.disabled = true;
     let shipmentList = document.querySelectorAll('.shipment');
     let itemList = [];
