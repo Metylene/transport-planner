@@ -141,8 +141,9 @@ function addShipment(event) {
     let shipmentListElt = document.querySelector('#shipment-list');
     let shipmentCloneElt = shipmentListElt.children[0].cloneNode(true);
     addDropzoneEventListener(shipmentCloneElt.querySelector('.drop-zone'));
-    shipmentCloneElt.querySelector('h5').textContent = alphabet[shipmentListElt.children.length - 1];
+    shipmentCloneElt.querySelector('h5').textContent = alphabet[shipmentListElt.children.length - 1].toUpperCase();
     shipmentCloneElt.querySelector('ul').innerHTML = '';
+    shipmentCloneElt.querySelector('.crate-amount').textContent = '0';
     shipmentListElt.insertBefore(shipmentCloneElt, event.target);
 }
 
@@ -175,4 +176,32 @@ function updateShipmentTotal(shipmentElement) {
         shipmentTotal += isNaN(crateQuantity) ? 0 : crateQuantity;
     }
     shipmentElement.querySelector('.crate-amount').textContent = shipmentTotal;
+}
+
+async function generate_list(event){
+    const textarea = document.querySelector('#generated_list');
+    textarea.textContent = '#Todo list\n';
+    textarea.disabled = true;
+    let shipmentList = document.querySelectorAll('.shipment');
+    let itemList = [];
+    for (let i = 0; i < shipmentList.length; i++) {
+        let shipmentItemList = shipmentList[i].querySelector('ul').children;
+        const shipmentName = shipmentList[i].querySelector('h5').textContent;
+        for (let j = 0; j < shipmentItemList.length; j++) {
+            let crateQuantity = parseInt(shipmentItemList[j].querySelector('input').value);
+            if (isNaN(crateQuantity)) {
+                crateQuantity = 0;
+            }
+            let itemName = shipmentItemList[j].querySelector('span').textContent;
+            let row = j === 0 ? shipmentName : " ";
+            row += "・" + itemName + "・" + (crateQuantity <= 1 ? crateQuantity + " crate" : crateQuantity + " crates");
+            textarea.textContent += row + "\n";
+        }
+    }
+    textarea.disabled = false;  
+}
+
+function copyToClipboard(event){
+    const list = event.target.parentNode.parentNode.querySelector('textarea').value.trim()
+    navigator.clipboard.writeText(list);
 }
